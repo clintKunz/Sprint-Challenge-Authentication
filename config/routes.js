@@ -3,6 +3,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const { authenticate } = require('./middlewares');
+//database
+const db = require('../database/dbConfig.js');
 
 module.exports = server => {
   server.post('/api/register', register);
@@ -18,7 +20,15 @@ function register(req, res) {
   const hash = bcrypt.hashSync(credentials.password, 12);
   credentials.password = hash; 
 
-  
+  db('users')
+    .insert(credentials)
+    .then(ids => {
+      const id = ids[0];
+      res.status(201).json({ newUserId: id });
+    })
+    .catch(err => {
+      res.status(500).json({ message: 'Error creating user', Error: err });
+    });
 }
 
 function login(req, res) {
