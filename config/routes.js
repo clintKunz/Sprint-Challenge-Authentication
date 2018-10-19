@@ -1,6 +1,7 @@
 const axios = require('axios');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const jwtSecret = 'Captain.insaneo.showNo.Mercy';
 
 const { authenticate } = require('./middlewares');
 //database
@@ -29,6 +30,20 @@ function register(req, res) {
     .catch(err => {
       res.status(500).json({ message: 'Error creating user', Error: err });
     });
+}
+
+//login
+function generateToken(users) {
+  const jwtPayload = {
+    id: user.id,
+    role: 'dad'
+  };
+
+  const jwtOptions = {
+    expiresIn: '30m'
+  };
+
+  return jwt.sign(jwtPayload, jwtSecret, jwtOptions);
 }
 
 function login(req, res) {
