@@ -3,14 +3,8 @@ import './App.css';
 import { NavLink, Route } from 'react-router-dom';
 import Login from './components/Login.js';
 import Jokes from './components/Jokes.js';
+import Register from './components/Register.js';
 
-const Welcome = props => {
-  return (
-    <div>
-      <h3>Warning: Dad Jokes</h3>
-    </div>
-  );
-};
 
 class App extends Component {
   render() {
@@ -18,7 +12,7 @@ class App extends Component {
       <div className="App">
         <header>
           <nav>
-            <NavLink exact to='/'>Warning</NavLink>
+            <NavLink exact to='/'>Register</NavLink>
             &nbsp; | &nbsp; 
             <NavLink to='/login'>Login</NavLink>
             &nbsp; | &nbsp; 
@@ -27,7 +21,7 @@ class App extends Component {
             <NavLink to='/' onClick={this.signout}>Logout</NavLink>
           </nav>
           <main>
-            <Route exact path='/' component={Welcome} />
+            <Route exact path='/' component={Register} />
             <Route path='/login' component={Login} />
             <Route path='/jokes' component={Jokes} />
           </main>

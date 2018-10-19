@@ -42,14 +42,18 @@ class Register extends Component {
     }  
     const endpoint = 'http://localhost:3300/api/register';
 
-      axios.post(endpoint, (this.state.username, this.state.password)).then(res => {
+    const username = this.state.username;
+    const password = this.state.password; 
+    const user = { username, password };
+
+
+      axios.post(endpoint, user).then(res => {
           console.log(res.data);
-          localStorage.setItem('jwt', res.data.token);
-          window.alert('Access granted');
-          this.props.history.push('/jokes');
+          window.alert('Success');
+          this.props.history.push('/login');
       }).catch(err => {
           console.error('Error', err);
-          window.alert('Error: Invalid username or password');
+          window.alert('Error: username already taken');
       })
   }
 }
