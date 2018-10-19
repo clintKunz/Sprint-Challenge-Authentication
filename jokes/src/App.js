@@ -7,7 +7,7 @@ import Jokes from './components/Jokes.js';
 const Welcome = props => {
   return (
     <div>
-      <h3>Warning: Dad Jokes Ahead</h3>
+      <h3>Warning: Dad Jokes</h3>
     </div>
   );
 };

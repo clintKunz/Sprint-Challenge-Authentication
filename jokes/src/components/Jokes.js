@@ -3,14 +3,15 @@ import axios from 'axios';
 
 class Jokes extends Component {
   state = {
-    jokes: []
+    jokes: [],
+    intro: 'Logging in...'
   }
   
   render() {
     return (
       <div>
         {this.state.jokes.length === 0 ? (
-            <h2>Have you logged in?</h2>
+            <h2>{this.state.intro}</h2>
         ) : (
         <div>
             <h2>You asked for it,</h2>
@@ -27,6 +28,11 @@ class Jokes extends Component {
 
   componentDidMount() {
       const token = localStorage.getItem('jwt');
+      if (!token) {
+          this.setState({
+            intro: 'Access denied, you may need to log in'
+          })
+      }
       const endpoint = 'http://localhost:3300/api/jokes';
       const options = {
         headers: {
